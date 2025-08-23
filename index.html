@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Rider Alpha</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="ui-container">
+      <div class="ui-left">
+        <div id="score" class="score-display">Score: 0</div>
+        <div id="highScore" class="high-score-display">High Score: 0</div>
+      </div>
+      <div class="ui-right">
+        <div id="time" class="time-display">Time: 0s</div>
+        <button id="pauseButton" class="pause-button hidden">Pause</button>
+      </div>
+    </div>
+
+    <div id="start-overlay" class="overlay">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
+        Asteroid Defender
+      </h1>
+      <p class="text-lg md:text-xl text-gray-300 mb-6">
+        Desktop: Use WASD or arrow keys to move, Space or mouse click to shoot.
+      </p>
+      <p class="text-lg md:text-xl text-gray-300 mb-6">
+        Mobile: Drag to move, tap to shoot.
+      </p>
+      <button id="startButton" class="start-button">Start Game</button>
+    </div>
+
+    <div id="gameOver-overlay" class="overlay hidden">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-red-500 mb-4">
+        Game Over
+      </h1>
+      <p id="final-score" class="text-xl md:text-2xl text-gray-300 mb-2">
+        Final Score: 0
+      </p>
+      <p id="final-time" class="text-xl md:text-2xl text-gray-300 mb-6">
+        Time Played: 0s
+      </p>
+      <button id="restartButton" class="restart-button">Restart Game</button>
+    </div>
+
+    <div id="pause-overlay" class="overlay hidden">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
+        Paused
+      </h1>
+      <button id="resumeButton" class="resume-button">Resume Game</button>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <script src="js/game.js"></script>
+  </body>
+</html>
