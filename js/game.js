@@ -122,7 +122,7 @@ window.onload = function () {
     canvas.addEventListener("touchend", onTouchEnd, false);
 
     // Page Visibility API - pause when user navigates away
-    document.addEventListener("visibilitychange", function() {
+    document.addEventListener("visibilitychange", function () {
       if (document.hidden && !isGameOver && !isFlyingIn && !isPaused) {
         pauseGame();
       }
@@ -145,7 +145,7 @@ window.onload = function () {
         loadedSpaceshipModel = spaceship;
 
         // Initialize the spaceship with starting position
-        spaceship.position.set(0, 0, -120);
+        spaceship.position.set(0, 0, -160);
 
         // Compute bounding sphere after model is loaded and positioned
         setTimeout(() => {
@@ -153,7 +153,7 @@ window.onload = function () {
           const tempBox = new THREE.Box3().setFromObject(loadedSpaceshipModel);
           spaceshipBoundingSphere = new THREE.Sphere();
           tempBox.getBoundingSphere(spaceshipBoundingSphere);
-          spaceshipBoundingSphere.radius *= 0.8;
+          spaceshipBoundingSphere.radius *= 0.7;
           console.log(
             "Spaceship bounding sphere created:",
             spaceshipBoundingSphere
@@ -248,7 +248,7 @@ window.onload = function () {
   }
 
   function getBoundaryLimits() {
-    const paddingX = 6;
+    const paddingX = 10;
     const paddingY = 5;
 
     const aspect = window.innerWidth / window.innerHeight;
