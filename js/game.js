@@ -194,6 +194,7 @@ window.onload = function () {
     if (spaceship) {
       spaceship.position.set(0, 0, -120);
       spaceship.rotation.z = 0;
+      spaceship.rotation.y = 0;
       // spaceship.rotation.x maintains its base Math.PI / 2 set in createSpaceship
     }
 
@@ -303,11 +304,11 @@ window.onload = function () {
       spaceship.position.x += moveX * speed;
       spaceship.position.y += moveY * speed;
 
-      const tiltFactor = Math.PI / 12;
+      const tiltFactor = Math.PI / 6;
       const lerpFactor = 0.2;
 
-      spaceship.rotation.z = THREE.MathUtils.lerp(
-        spaceship.rotation.z,
+      spaceship.rotation.y = THREE.MathUtils.lerp(
+        spaceship.rotation.y,
         -moveX * tiltFactor,
         lerpFactor
       );
@@ -394,7 +395,7 @@ window.onload = function () {
 
       for (let i = bullets.length - 1; i >= 0; i--) {
         const bullet = bullets[i];
-        bullet.position.z -= 0.5 * gameSpeed;
+        bullet.position.z -= 0.99 * gameSpeed; // Bullet speed
 
         const bulletBoundingSphere = new THREE.Sphere();
         if (!bullet.geometry.boundingSphere)
@@ -470,9 +471,14 @@ window.onload = function () {
 
   function shootBullet() {
     if (isGameOver || isFlyingIn) return;
-    const geometry = new THREE.SphereGeometry(0.1, 8, 8);
-    const material = new THREE.MeshBasicMaterial({ color: 0xef4444 });
+    const geometry = new THREE.CylinderGeometry(0.2, 0.2, 0.8, 8); // Bullet size
+    const material = new THREE.MeshBasicMaterial({
+      color: 0xef4444,
+      shininess: 10,
+      flatShading: true,
+    });
     const bullet = new THREE.Mesh(geometry, material);
+    bullet.rotation.x = Math.PI / 2;
 
     bullet.position.set(
       spaceship.position.x,
