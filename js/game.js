@@ -121,9 +121,12 @@ window.onload = function () {
     canvas.addEventListener("touchmove", onTouchMove, false);
     canvas.addEventListener("touchend", onTouchEnd, false);
 
-    // Removed automatic pause on window blur/focus to prevent unwanted pausing
-    // window.addEventListener("blur", pauseGame);
-    // window.addEventListener("focus", unpauseGame);
+    // Page Visibility API - pause when user navigates away
+    document.addEventListener("visibilitychange", function() {
+      if (document.hidden && !isGameOver && !isFlyingIn && !isPaused) {
+        pauseGame();
+      }
+    });
   }
 
   // --- Game Logic ---
