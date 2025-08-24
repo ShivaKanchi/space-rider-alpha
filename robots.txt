@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shivakanchi.github.io/space-rider-alpha/sitemap.xml

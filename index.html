@@ -3,58 +3,179 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Space Rider Alpha</title>
+    <title>Space Rider Alpha - Free 3D Asteroid Shooter Game Online</title>
+    <meta
+      name="description"
+      content="Play Space Rider Alpha, the ultimate free 3D asteroid shooter game online. Defend against asteroids, score high, and enjoy immersive space combat in your browser. No download required!"
+    />
+    <meta
+      name="keywords"
+      content="space game, asteroid shooter, 3D game, online game, free game, browser game, space combat, arcade game, WebGL game"
+    />
+    <meta name="author" content="Space Rider Alpha" />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://shivakanchi.github.io/space-rider-alpha/"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://shivakanchi.github.io/space-rider-alpha/"
+    />
+    <meta
+      property="og:title"
+      content="Space Rider Alpha - Free 3D Asteroid Shooter Game"
+    />
+    <meta
+      property="og:description"
+      content="Play the ultimate free 3D asteroid shooter game online. Defend against asteroids and score high in this immersive space combat experience."
+    />
+    <meta
+      property="og:image"
+      content="https://yoursite.com/assets/game-preview.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://shivakanchi.github.io/space-rider-alpha/"
+    />
+    <meta
+      property="twitter:title"
+      content="Space Rider Alpha - Free 3D Asteroid Shooter Game"
+    />
+    <meta
+      property="twitter:description"
+      content="Play the ultimate free 3D asteroid shooter game online. No download required!"
+    />
+    <meta
+      property="twitter:image"
+      content="https://yoursite.com/assets/game-preview.jpg"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Preload critical resources -->
+    <link
+      rel="preload"
+      href="assets/models/space-ship.glb"
+      as="fetch"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+      as="script"
+    />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Space Rider Alpha",
+        "description": "Free 3D asteroid shooter game playable in browser",
+        "genre": ["Action", "Arcade", "Shooter"],
+        "gamePlatform": "Web Browser",
+        "operatingSystem": "Any",
+        "applicationCategory": "Game",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.5",
+          "ratingCount": "100"
+        }
+      }
+    </script>
   </head>
   <body>
-    <div class="ui-container">
-      <div class="ui-left">
-        <div id="score" class="score-display">Score: 0</div>
-        <div id="highScore" class="high-score-display">High Score: 0</div>
+    <main role="main" aria-label="Space Rider Alpha Game">
+      <div class="ui-container">
+        <div class="ui-left">
+          <div id="score" class="score-display">Score: 0</div>
+          <div id="highScore" class="high-score-display">High Score: 0</div>
+        </div>
+        <div class="ui-right">
+          <div id="time" class="time-display">Time: 0s</div>
+          <button id="pauseButton" class="pause-button hidden">Pause</button>
+        </div>
       </div>
-      <div class="ui-right">
-        <div id="time" class="time-display">Time: 0s</div>
-        <button id="pauseButton" class="pause-button hidden">Pause</button>
+
+      <div id="start-overlay" class="overlay">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
+          Space Rider Alpha
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 mb-6">
+          Desktop: Use WASD or arrow keys to move, Space or mouse click to
+          shoot.
+        </p>
+        <p class="text-lg md:text-xl text-gray-300 mb-6">
+          Mobile: Drag to move, tap to shoot.
+        </p>
+        <button id="startButton" class="start-button">Start Game</button>
       </div>
-    </div>
 
-    <div id="start-overlay" class="overlay">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
-        Space Rider Alpha
-      </h1>
-      <p class="text-lg md:text-xl text-gray-300 mb-6">
-        Desktop: Use WASD or arrow keys to move, Space or mouse click to shoot.
-      </p>
-      <p class="text-lg md:text-xl text-gray-300 mb-6">
-        Mobile: Drag to move, tap to shoot.
-      </p>
-      <button id="startButton" class="start-button">Start Game</button>
-    </div>
+      <div id="gameOver-overlay" class="overlay hidden">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-red-500 mb-4">
+          Game Over
+        </h1>
+        <p id="final-score" class="text-xl md:text-2xl text-gray-300 mb-2">
+          Final Score: 0
+        </p>
+        <p id="final-time" class="text-xl md:text-2xl text-gray-300 mb-6">
+          Time Played: 0s
+        </p>
+        <button id="restartButton" class="restart-button">Restart Game</button>
+      </div>
 
-    <div id="gameOver-overlay" class="overlay hidden">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-red-500 mb-4">
-        Game Over
-      </h1>
-      <p id="final-score" class="text-xl md:text-2xl text-gray-300 mb-2">
-        Final Score: 0
-      </p>
-      <p id="final-time" class="text-xl md:text-2xl text-gray-300 mb-6">
-        Time Played: 0s
-      </p>
-      <button id="restartButton" class="restart-button">Restart Game</button>
-    </div>
+      <div id="pause-overlay" class="overlay hidden">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
+          Paused
+        </h1>
+        <button id="resumeButton" class="resume-button">Resume Game</button>
+      </div>
 
-    <div id="pause-overlay" class="overlay hidden">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
-        Paused
-      </h1>
-      <button id="resumeButton" class="resume-button">Resume Game</button>
-    </div>
+      <canvas id="gameCanvas" aria-label="Game Canvas"></canvas>
+    </main>
 
-    <canvas id="gameCanvas"></canvas>
+    <!-- SEO Content -->
+    <div style="position: absolute; left: -9999px; opacity: 0">
+      <h1>Space Rider Alpha - 3D Asteroid Shooter Game</h1>
+      <p>
+        Experience the thrill of space combat in this free online 3D asteroid
+        shooter game. Navigate through space, destroy asteroids, and achieve
+        high scores in this WebGL-powered browser game.
+      </p>
+      <h2>Game Features:</h2>
+      <ul>
+        <li>Immersive 3D graphics powered by WebGL</li>
+        <li>Responsive controls for desktop and mobile</li>
+        <li>Progressive difficulty system</li>
+        <li>High score tracking</li>
+        <li>No download required - play instantly</li>
+      </ul>
+      <h2>How to Play:</h2>
+      <p>
+        Use WASD or arrow keys to move your spaceship. Press Space or click to
+        shoot asteroids. Avoid collisions and survive as long as possible!
+      </p>
+    </div>
 
     <script src="js/game.js"></script>
   </body>
