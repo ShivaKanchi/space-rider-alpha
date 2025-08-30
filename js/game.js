@@ -184,6 +184,11 @@ window.onload = function () {
   }
 
   function startGame() {
+    // Request fullscreen
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    }
+
     isGameOver = false;
     isFlyingIn = true;
     isPaused = false;
@@ -192,10 +197,11 @@ window.onload = function () {
     gameSpeed = 1;
 
     if (spaceship) {
-      spaceship.position.set(0, 0, -120);
+      // Start from far away (small appearance)
+      spaceship.position.set(0, 0, -250);
+      spaceship.scale.set(0.1, 0.1, 0.1); // Start very small
       spaceship.rotation.z = 0;
       spaceship.rotation.y = 0;
-      // spaceship.rotation.x maintains its base Math.PI / 2 set in createSpaceship
     }
 
     asteroids.forEach((a) => scene.remove(a));
@@ -250,7 +256,7 @@ window.onload = function () {
 
   function getBoundaryLimits() {
     const paddingX = 10;
-    const paddingY = 5;
+    const paddingY = 4;
 
     const aspect = window.innerWidth / window.innerHeight;
     const frustumHeight =
@@ -268,10 +274,42 @@ window.onload = function () {
 
     if (isFlyingIn) {
       if (spaceship) {
-        spaceship.position.z += 1.0;
-        if (spaceship.position.z >= 5) {
+        // Calculate progress for smooth easing
+        const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
+        const duration = 3.0; // Total animation duration in seconds
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Smooth easing function
+        const easeInOut = (progress) => {
+          return progress < 0.5
+            ? 4 * progress * progress * progress
+            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        };
+
+        const easedProgress = easeInOut(progress);
+
+        // Move forward with smooth interpolation
+        const startZ = -250;
+        const endZ = 5;
+        spaceship.position.z = startZ + (endZ - startZ) * easedProgress;
+
+        // Scale up smoothly
+        const startScale = 0.15;
+        const endScale = 0.36;
+        const currentScale =
+          startScale + (endScale - startScale) * easedProgress;
+        spaceship.scale.set(currentScale, currentScale, currentScale);
+
+        // Add gentler floating animation
+        const time = Date.now() * 0.001; // Slower time factor
+        spaceship.position.y += Math.sin(time) * 0.015;
+        spaceship.rotation.z = Math.sin(time * 0.5) * 0.03;
+
+        // End fly-in when animation is complete
+        if (progress >= 1) {
           isFlyingIn = false;
-          spaceship.position.z = 5;
+          spaceship.position.z = endZ;
+          spaceship.scale.set(endScale, endScale, endScale);
         }
       }
     }
@@ -395,7 +433,7 @@ window.onload = function () {
 
       for (let i = bullets.length - 1; i >= 0; i--) {
         const bullet = bullets[i];
-        bullet.position.z -= 0.99 * gameSpeed; // Bullet speed
+        bullet.position.z -= 1.99 * gameSpeed; // Bullet speed
 
         const bulletBoundingSphere = new THREE.Sphere();
         if (!bullet.geometry.boundingSphere)
