@@ -197,8 +197,10 @@ window.onload = function () {
     gameSpeed = 1;
 
     if (spaceship) {
-      // Start from far away (small appearance)
-      spaceship.position.set(0, 0, -250);
+      // Start from far away (small appearance) at a fixed height
+      const { yLimit } = getBoundaryLimits();
+      const startY = -yLimit / 2; // Start at bottom half of screen
+      spaceship.position.set(0, startY, -250);
       spaceship.scale.set(0.1, 0.1, 0.1); // Start very small
       spaceship.rotation.z = 0;
       spaceship.rotation.y = 0;
@@ -276,7 +278,7 @@ window.onload = function () {
       if (spaceship) {
         // Calculate progress for smooth easing
         const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
-        const duration = 3.0; // Total animation duration in seconds
+        const duration = 4.0; // Longer duration for smoother effect
         const progress = Math.min(elapsed / duration, 1);
 
         // Smooth easing function
@@ -288,10 +290,20 @@ window.onload = function () {
 
         const easedProgress = easeInOut(progress);
 
-        // Move forward with smooth interpolation
+        // Get the initial and final positions
+        const { yLimit } = getBoundaryLimits();
+        const startY = -yLimit / 2; // Same as initial position
+        const endY = -yLimit / 2; // Keep the same Y position
         const startZ = -250;
         const endZ = 5;
+
+        // Move forward with smooth interpolation
         spaceship.position.z = startZ + (endZ - startZ) * easedProgress;
+
+        // Keep Y position consistent with gentle floating
+        const baseY = startY + (endY - startY) * easedProgress;
+        const floatAmount = Math.sin(elapsed * 2) * 0.3 * (1 - easedProgress); // Reduce floating as we approach
+        spaceship.position.y = baseY + floatAmount;
 
         // Scale up smoothly
         const startScale = 0.15;
@@ -300,16 +312,18 @@ window.onload = function () {
           startScale + (endScale - startScale) * easedProgress;
         spaceship.scale.set(currentScale, currentScale, currentScale);
 
-        // Add gentler floating animation
-        const time = Date.now() * 0.001; // Slower time factor
-        spaceship.position.y += Math.sin(time) * 0.015;
-        spaceship.rotation.z = Math.sin(time * 0.5) * 0.03;
+        // Add gentle rotation that reduces as we approach
+        const rotationAmount =
+          Math.sin(elapsed * 1.5) * 0.05 * (1 - easedProgress);
+        spaceship.rotation.z = rotationAmount;
 
         // End fly-in when animation is complete
         if (progress >= 1) {
           isFlyingIn = false;
           spaceship.position.z = endZ;
+          spaceship.position.y = endY; // Ensure final Y position is exact
           spaceship.scale.set(endScale, endScale, endScale);
+          spaceship.rotation.z = 0; // Reset rotation
         }
       }
     }
@@ -433,7 +447,7 @@ window.onload = function () {
 
       for (let i = bullets.length - 1; i >= 0; i--) {
         const bullet = bullets[i];
-        bullet.position.z -= 1.99 * gameSpeed; // Bullet speed
+        bullet.position.z -= 5 * gameSpeed; // Bullet speed
 
         const bulletBoundingSphere = new THREE.Sphere();
         if (!bullet.geometry.boundingSphere)
