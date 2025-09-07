@@ -10,7 +10,7 @@ Experience immersive space combat directly in your browser! Navigate through spa
 
 ## 🎮 Play Now
 
-**[🎯 Play Space Rider Alpha](https://yoursite.com/space-rider-alpha)**
+**[🎯 Play Space Rider Alpha](https://shivakanchi.github.io/space-rider-alpha/)**
 
 No downloads, no installations - just pure gaming action!
 
@@ -27,11 +27,13 @@ No downloads, no installations - just pure gaming action!
 ## 🎯 How to Play
 
 ### Desktop Controls
+
 - **Movement**: `WASD` or `Arrow Keys`
 - **Shoot**: `Spacebar` or `Mouse Click`
 - **Pause**: `Escape`
 
 ### Mobile Controls
+
 - **Movement**: Drag to move spaceship
 - **Shoot**: Tap anywhere on screen
 - **Pause**: Tap pause button
@@ -48,19 +50,21 @@ No downloads, no installations - just pure gaming action!
 ## 🚀 Quick Start
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/space-rider-alpha.git
    cd space-rider-alpha
    ```
 
 2. **Serve locally**
+
    ```bash
    # Using Python
    python -m http.server 8000
-   
+
    # Using Node.js
    npx serve .
-   
+
    # Using PHP
    php -S localhost:8000
    ```
@@ -91,12 +95,14 @@ space-rider-alpha/
 ## 🎨 Customization
 
 ### Adding New Features
+
 - **Weapons**: Modify `shootBullet()` function in `js/game.js`
 - **Enemies**: Extend `spawnAsteroid()` for new enemy types
 - **Power-ups**: Add collision detection in `update()` loop
 - **Sounds**: Integrate Web Audio API for sound effects
 
 ### Styling
+
 - **Colors**: Update CSS variables in `css/styles.css`
 - **UI Elements**: Modify overlay classes for different themes
 - **Responsive**: Adjust breakpoints in CSS media queries
@@ -106,19 +112,24 @@ space-rider-alpha/
 We welcome contributions from the community! Here's how you can help:
 
 ### 🐛 Bug Reports
+
 Found a bug? Please create an issue with:
+
 - Browser and version
 - Steps to reproduce
 - Expected vs actual behavior
 - Screenshots if applicable
 
 ### 💡 Feature Requests
+
 Have an idea? We'd love to hear it! Open an issue describing:
+
 - The feature you'd like to see
 - Why it would be valuable
 - How it might work
 
 ### 🔧 Pull Requests
+
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
@@ -132,6 +143,7 @@ Have an idea? We'd love to hear it! Open an issue describing:
 📬 **Email**: [shivakanchi111@gmail.com](mailto:shivakanchi111@gmail.com)
 
 We're actively looking for:
+
 - 🎨 **Artists** - 3D models, textures, UI design
 - 🎵 **Sound Designers** - Music and sound effects
 - 💻 **Developers** - New features, optimizations, bug fixes
@@ -142,6 +154,7 @@ We're actively looking for:
 ## 🗺️ Roadmap
 
 ### Version 2.0 (Planned)
+
 - [ ] Multiple weapon types
 - [ ] Power-ups and upgrades
 - [ ] Different enemy types
@@ -151,6 +164,7 @@ We're actively looking for:
 - [ ] Multiplayer support
 
 ### Version 3.0 (Future)
+
 - [ ] Campaign mode with levels
 - [ ] Ship customization
 - [ ] Leaderboards (online)
@@ -167,12 +181,12 @@ We're actively looking for:
 
 ## 🌐 Browser Support
 
-| Browser | Version | Status |
-|---------|---------|--------|
-| Chrome  | 80+     | ✅ Full Support |
-| Firefox | 75+     | ✅ Full Support |
-| Safari  | 13+     | ✅ Full Support |
-| Edge    | 80+     | ✅ Full Support |
+| Browser | Version              | Status          |
+| ------- | -------------------- | --------------- |
+| Chrome  | 80+                  | ✅ Full Support |
+| Firefox | 75+                  | ✅ Full Support |
+| Safari  | 13+                  | ✅ Full Support |
+| Edge    | 80+                  | ✅ Full Support |
 | Mobile  | iOS 13+ / Android 8+ | ✅ Full Support |
 
 ## 📄 License
@@ -189,6 +203,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🌟 Show Your Support
 
 If you like this project, please consider:
+
 - ⭐ Starring the repository
 - 🐛 Reporting bugs
 - 💡 Suggesting features
@@ -199,4 +214,4 @@ If you like this project, please consider:
 
 **Made with ❤️ for the gaming community**
 
-*Let's build the future of browser gaming together!*
+_Let's build the future of browser gaming together!_
