@@ -1,4 +1,4 @@
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function () {
   // --- Global Variables and Game State ---
   let scene, camera, renderer;
   let spaceship;
@@ -660,4 +660,4 @@ window.onload = function () {
 
   // --- Initialization ---
   init();
-};
+});
