@@ -10,7 +10,7 @@ For any questions, suggestions, or collaboration opportunities, please reach out
 
 ## 🤝 How to Contribute
 
-### 1. Code Contributions
+### 1. Code Contribution
 - Fork the repository
 - Create a feature branch
 - Make your changes
